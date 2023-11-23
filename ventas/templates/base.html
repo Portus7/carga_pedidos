@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplicación RKF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+</head>
+<body>
+    <button id="loadData">Cargar Datos</button>
+    <div id="data"></div>
+
+    <script>
+        document.getElementById('loadData').addEventListener('click', function() {
+            fetch('http://localhost:8000/get_sales_data')
+                .then(response => response.json())
+                .then(data => {
+                    var compressedData = JSON.stringify(data);
+                    var compressedData = LZString.compress(compressedData);
+                    localStorage.setItem('salesData', compressedData);
+
+                    var retrievedData = localStorage.getItem('salesData');
+                    var decompressedData = LZString.decompress(retrievedData);
+                    var salesData = JSON.parse(decompressedData);
+
+                    document.getElementById('data').innerText = JSON.stringify(salesData, null, 2);
+                });
+        });
+    </script>
+</body>
+</html>
