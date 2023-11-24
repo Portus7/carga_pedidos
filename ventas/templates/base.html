@@ -1,22 +1,28 @@
-{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplicación RKF</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
 </head>
 <body>
-    <button id="loadData">Cargar Datos</button>
-    <div id="data"></div>
+    <div class="container mt-5">
+        <h1 class="text-center">Aplicación RKF</h1>
+        <div class="mt-5">
+            <button id="loadData" class="btn btn-primary">Cargar Datos</button>
+        </div>
+        <div id="data" class="mt-5"></div>
 
-    {% include "carga.html" %}
-
+        {% include "carga.html" %}
+    </div>
 
     <script>
         document.getElementById('loadData').addEventListener('click', function() {
             fetch('http://localhost:8000/get_sales_data')
-                .then(response => {
-                    console.log(response)
+                .then(response => response.json())
+                .then(data => {
                     var compressedData = JSON.stringify(data);
                     var compressedData = LZString.compress(compressedData);
                     localStorage.setItem('ejemplo', compressedData);

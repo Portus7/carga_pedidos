@@ -1,12 +1,18 @@
 
 {% block content %}
-  <h2>Subir datos</h2>
-  <form method="post" action="{% url 'carga' %}" enctype="multipart/form-data">   
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="dataFile">Selecciona el archivo JSON:</label>
-      <input type="file" id="dataFile" name="dataFile" accept=".json">
-    </div>
-    <button type="submit" class="btn btn-primary">Subir</button>
-  </form>
+<div class="card mt-5">
+  <div class="card-header">
+    Subir datos
+  </div>
+  <div class="card-body">
+    <form method="post" action="{% url 'carga' %}" enctype="multipart/form-data">   
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="dataFile">Selecciona el archivo JSON:</label>
+        <input type="file" id="dataFile" name="dataFile" accept=".json" class="form-control-file">
+      </div>
+      <button type="submit" class="btn btn-primary">Subir</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
