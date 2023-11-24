@@ -1,0 +1,15 @@
+{% block content %}
+<div class="card mt-5">
+  <div class="card-header">
+    Subir datos
+  </div>
+  <div class="card-body">
+    <form method="post" action="{% url 'order' %}" enctype="multipart/form-data">   
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="orderFile">Guardar Orden al DB</label>      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

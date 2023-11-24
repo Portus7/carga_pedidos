@@ -5,7 +5,7 @@ document.getElementById('loadData').addEventListener('click', function() {
 
     // Enviar los datos al backend con una solicitud AJAX
     $.ajax({
-        url: '/ruta/a/tu/endpoint',
+        url: 'orden',
         type: 'post',
         data: { 'orders': localStorage.getItem('orders') },
         success: function(response) {

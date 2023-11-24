@@ -1,5 +1,4 @@
-'on_delete=models.SET_NULL'
-'on_delete=models.CASCADE'
+
 from django.db import models
 
 class Canal(models.Model):

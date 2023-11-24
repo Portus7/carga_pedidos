@@ -16,6 +16,11 @@
         <div id="data" class="mt-5"></div>
 
         {% include "carga.html" %}
+
+        <div class="mt-5">
+            <button id="guardarOrden" class="btn btn-primary">Guardar Orden</button>
+        </div>
+        <div id="order" class="mt-5"></div>
     </div>
 
     <script>
@@ -25,14 +30,28 @@
                 .then(data => {
                     var compressedData = JSON.stringify(data);
                     var compressedData = LZString.compress(compressedData);
-                    localStorage.setItem('ejemplo', compressedData);
+                    localStorage.setItem('pedido', compressedData);
 
-                    var retrievedData = localStorage.getItem('ejemplo');
+                    var retrievedData = localStorage.getItem('pedido');
                     var decompressedData = LZString.decompress(retrievedData);
                     var salesData = JSON.parse(decompressedData);
 
                     document.getElementById('data').innerText = JSON.stringify(salesData, null, 2);
                 });
+        });
+        
+        document.getElementById('guardarOrden').addEventListener('click', function() {
+            var compressed_orders = localStorage.getItem('pedido');
+            var orders = JSON.parse(LZString.decompressFromUTF16(compressed_orders));
+        
+            $.ajax({
+                url: 'orden',
+                type: 'post',
+                data: { 'orders': localStorage.getItem('pedido') },
+                success: function(response) {
+                    console.log('Se guardo la orden')
+                }
+            });
         });
     </script>
 </body>
