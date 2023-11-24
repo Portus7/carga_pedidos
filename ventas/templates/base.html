@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,16 +9,19 @@
     <button id="loadData">Cargar Datos</button>
     <div id="data"></div>
 
+    {% include "carga.html" %}
+
+
     <script>
         document.getElementById('loadData').addEventListener('click', function() {
             fetch('http://localhost:8000/get_sales_data')
-                .then(response => response.json())
-                .then(data => {
+                .then(response => {
+                    console.log(response)
                     var compressedData = JSON.stringify(data);
                     var compressedData = LZString.compress(compressedData);
-                    localStorage.setItem('salesData', compressedData);
+                    localStorage.setItem('ejemplo', compressedData);
 
-                    var retrievedData = localStorage.getItem('salesData');
+                    var retrievedData = localStorage.getItem('ejemplo');
                     var decompressedData = LZString.decompress(retrievedData);
                     var salesData = JSON.parse(decompressedData);
 
